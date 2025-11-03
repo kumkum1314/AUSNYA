@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact Us — Ausnya</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      :root{--accent:#b89367;--muted:#777;--max:1100px}
+      html,body{height:100%;margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;color:#222}
+      body{line-height:1.6}
+      .wrap{max-width:var(--max);margin:40px auto;padding:20px}
+      header h1{font-family:'Cormorant Garamond',serif;font-size:56px;margin:6px 0;color:#111}
+      .layout{display:flex;gap:40px}
+      .main{flex:1 1 65%}
+      .aside{width:320px}
+      .search-box{border:1px solid #e6e6e6;padding:12px;display:flex;align-items:center;gap:8px}
+      .search-box input{flex:1;border:0;outline:none}
+
+      form{margin-top:30px}
+      label{display:block;margin:18px 0 8px;font-weight:500}
+      input[type=text],input[type=email],textarea{width:100%;padding:18px;border:1px solid #ccc;border-radius:2px;font-size:16px}
+      textarea{min-height:160px;resize:vertical}
+      .btn{display:inline-block;padding:18px 40px;background:var(--accent);color:white;border:none;margin-top:18px;cursor:pointer;font-weight:500}
+      .meta{margin-top:34px;color:var(--muted)}
+
+      .about img{width:100%;height:auto;display:block;border-radius:2px}
+      .about p{margin-top:12px;color:#333;font-size:15px}
+
+  .contact-details{margin-top:28px;font-family:'Cormorant Garamond',serif;color:#222}
+  .contact-details h3{color:#111;font-weight:300;font-size:28px;margin-bottom:10px}
+  .contact-details .section-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#111;margin:14px 0 8px}
+  .contact-details .info{font-family:Montserrat,system-ui,Arial,sans-serif;font-size:18px;color:#222;line-height:1.9;margin:6px 0}
+  .contact-details .muted{color:var(--muted)}
+  .contact-details .accent{color:var(--accent);font-weight:600}
+  .contact-details .directions-link{display:inline-block;margin-top:12px;color:var(--accent);text-decoration:underline;font-weight:500}
+
+  .success{display:none;padding:14px;border-left:4px solid green;background:#f3fff3;margin-top:18px}
+
+  /* Centered thank-you modal */
+  .modal-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:9999}
+  .modal-overlay.visible{display:flex}
+  .modal-box{background:#fff;color:#111;padding:28px 30px;border-radius:8px;max-width:520px;width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.25);text-align:center;font-family:'Cormorant Garamond',serif}
+  .modal-box h2{margin:0 0 8px;font-size:28px}
+  .modal-box p{margin:0;color:#444}
+
+      @media(max-width:900px){.layout{flex-direction:column}.aside{width:100%}}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Contact Us</h1>
+        <p class="meta">For bookings and enquiries, please call us or write to us.</p>
+      </header>
+
+      <div class="layout">
+        <main class="main">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;margin-top:30px">Let's start a conversation</h2>
+
+          <form id="contactForm">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" required>
+
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" required>
+
+            <label for="phone">Your contact</label>
+            <input id="phone" name="phone" type="text">
+
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text">
+
+            <label for="message">Your message (optional)</label>
+            <textarea id="message" name="message"></textarea>
+
+            <button type="submit" class="btn">Submit</button>
+
+            <!-- Centered thank-you modal (hidden by default) -->
+            <div id="thankyouModal" class="modal-overlay" role="dialog" aria-hidden="true">
+              <div class="modal-box">
+                <h2>Thank you</h2>
+                <p>Your message has been prepared in your email client. We'll get back to you soon.</p>
+              </div>
+            </div>
+
+            <div id="success" class="success" role="status" style="display:none">Thanks — your message has been prepared in your email client. If nothing opened, please check your default mail client.</div>
+          </form>
+
+          <section class="contact-details">
+            <h3>Contact Details</h3>
+            <p class="section-title">Hotel Info Center</p>
+            <p class="info">Business Hours: Monday – Sunday, 9 am – 5 pm</p>
+            <p class="info">Telephone: <a class="accent" href="tel:+919821902009">+919821902009</a></p>
+            <p class="info">Email: <a class="accent" href="mailto:reserve@ausnya.com">reserve@ausnya.com</a></p>
+
+            <p class="info">
+              <span style="display:block;">
+                Address: Ausnya Hotels and Resorts<br>
+                Village Sai Roopa Banjar — Kullu<br>
+                Himachal Pradesh Pin code 175123
+              </span>
+              <a class="directions-link" href="https://www.google.com/maps/dir/?api=1&destination=Ausnya+Hotels+and+Resorts,+Village+Sai+Roopa+Banjar,+Kullu,+Himachal+Pradesh+175123" target="_blank" rel="noopener" style="margin-top:8px;display:inline-block;">Get Directions</a>
+            </p>
+          </section>
+        </main>
+
+        <aside class="aside">
+          <div class="search-box">
+            <input placeholder="Search" aria-label="Search">
+            <button aria-label="search" style="background:none;border:0;cursor:pointer">🔍</button>
+          </div>
+
+          <!-- About widget: link to local about page and show local image (fallback-safe) -->
+          <div class="widget cs-widget_about" style="margin-top:20px">
+            <h5 class="widget-title" style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;color:var(--accent);font-size:28px;">
+              <a href="about.html" style="color:inherit;text-decoration:none;font-size:1.2em;">ABOUT US</a>
+            </h5>
+            <div class="profile">
+              <img class="profile-img" src="images/profile.png" alt="About Ausnya" style="width:100%;height:200px;object-fit:cover;border-radius:2px;display:block">
+              <p style="margin:12px 0 0;line-height:1.6;color:#0b0a0a;font-size:15px">Ausnya is a thoughtfully designed retreat nestled along the pristine riverbanks of Tirthan Valley, offering contemporary accommodations and access to hiking and fishing adventures.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer class="site-footer" style="background:#000;color:#fff;padding:60px 0;margin-top:80px">
+      <div class="wrap">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:32px;margin:0 0 20px">Ausnya</h2>
+            <p style="margin:0">Ausnya is a thoughtfully designed retreat nestled along the pristine riverbanks of Tirthan Valley, Himachal Pradesh minutes from the UNESCO Great Himalayan National Park.</p>
+          </div>
+          
+          <div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 20px">Reach Out</h3>
+            <p style="margin:0">Ausnya Hotels and Resorts<br>
+            Village Sai Ropa<br>
+            Banjar Himachal Pradesh<br>
+            Pin code 175123<br>
+            Email: reserve@ausnya.com<br>
+            Tel: +919821902009</p>
+          </div>
+
+          <div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 20px">Follow our journey</h3>
+            <p style="margin:0">Stay Connected:</p>
+            <a href="https://www.instagram.com/stayatausnya?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="color:#fff;text-decoration:none;display:inline-block;margin-top:10px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)">
+          <nav style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:20px">
+            <a href="privacy-policy.html" style="color:#fff;text-decoration:none">PRIVACY POLICY</a>
+            <a href="cancellation-policy.html" style="color:#fff;text-decoration:none">CANCELLATION POLICY</a>
+            <a href="terms-and-conditions.html" style="color:#fff;text-decoration:none">TERMS AND CONDITIONS</a>
+            <a href="our-blog.html" style="color:#fff;text-decoration:none">OUR BLOG</a>
+          </nav>
+          <p style="margin:0;opacity:0.7">© Copyright Ausnya 2025</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('success');
+      
+      // Add error display
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = 'display:none;padding:14px;border-left:4px solid red;background:#fff3f3;margin-top:18px';
+      form.appendChild(errorDiv);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear any previous error
+        errorDiv.style.display = 'none';
+        
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const subject = document.getElementById('subject').value.trim() || 'General enquiry';
+        const message = document.getElementById('message').value.trim();
+
+        if(!name || !email){
+          alert('Please provide your name and email.');
+          return;
+        }
+
+        // Prepare payload
+        const payload = { name, email, phone, subject, message };
+
+        // Try to POST to backend /send endpoint. If backend is not reachable, fallback to mailto.
+        const modal = document.getElementById('thankyouModal');
+
+        try {
+            // Use relative path to backend
+            const response = await fetch('/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (response.ok) {
+                // Show success modal
+                if (modal) {
+                    modal.classList.add('visible');
+                    modal.setAttribute('aria-hidden', 'false');
+                    setTimeout(() => {
+                        modal.classList.remove('visible');
+                        modal.setAttribute('aria-hidden', 'true');
+                    }, 6000);
+                }
+                form.reset();
+            } else {
+                // Show error from server
+                const error = await response.json();
+                errorDiv.textContent = `Error: ${error.error || 'Failed to send message'}`;
+                errorDiv.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            errorDiv.textContent = 'Could not connect to server. Please try again or contact us directly at reserve@ausnya.com';
+            errorDiv.style.display = 'block';
+        }
+      });
+    </script>
+  </body>
+</html>
