@@ -13,3 +13,46 @@
 */
 
  /** Add your styles below **/
+/* Sticky header: add darker translucent, blurred background so it remains
+   legible over white sections while scrolling. Use strong selectors to
+   override theme defaults. */
+body #sticky-site-header.site-header,
+body .site-header.custom-sticky-header {
+    /* Match lower header visual when it slides into view */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(20, 20, 20, 0.55) !important;
+    background-color: rgba(20, 20, 20, 0.55) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25) !important;
+    z-index: 9999 !important;
+}
+
+/* Ensure sticky header stays visually distinct when overlapping content */
+body .site-header.custom-sticky-header .menu a,
+body #sticky-site-header .menu a,
+body .site-header.custom-sticky-header .cs-btn-outline,
+body #sticky-site-header .cs-btn-outline {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.95) !important;
+}
+
+/* Keep the two-line header block together without collapsing spacing */
+#sticky-site-header.site-header .elementor-section,
+.site-header.custom-sticky-header .elementor-section {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Do NOT include the thin top bar ("Ausnya Hotels & Resorts" | Tel) inside
+   the sticky header as we scroll. That section has the Elementor id 7ed15b4d. */
+#sticky-site-header .elementor-element-7ed15b4d {
+    display: none !important;
+}
+
+/* Fallback: hide the first top section in the sticky header on all pages,
+   in case Elementor regenerates the section id/class. */
+#sticky-site-header .elementor-top-section:first-child {
+    display: none !important;
+}

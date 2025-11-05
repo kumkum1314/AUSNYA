@@ -2,6 +2,7 @@
 import os
 import sys
 from flask import Flask, request, jsonify
+from flask_compress import Compress
 from dotenv import load_dotenv
 import smtplib
 from email.message import EmailMessage
@@ -11,13 +12,14 @@ import traceback
 # Load environment variables from .env file
 load_dotenv()
 app = Flask(__name__, static_url_path='', static_folder='.')
+Compress(app)
 
 # Configuration from environment
 SMTP_HOST = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
 SMTP_USER = os.environ.get('SMTP_USER')
 SMTP_PASS = os.environ.get('SMTP_PASS')
-MAIL_TO = os.environ.get('MAIL_TO', 'reserve@ausnya.com')
+MAIL_TO = os.environ.get('MAIL_TO', 'kukki1314@gmail.com')
 
 # Upload handling
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -37,8 +39,9 @@ def allowed_file(filename: str) -> bool:
 
 
 def send_email(subject: str, body: str, reply_to: str = None, attachment_bytes: bytes = None, attachment_filename: str = None):
+    # If SMTP credentials are not provided, skip sending and let caller decide
     if not SMTP_HOST or not SMTP_USER or not SMTP_PASS:
-        raise RuntimeError('SMTP configuration is incomplete. Set SMTP_HOST, SMTP_USER and SMTP_PASS.')
+        raise RuntimeError('SMTP configuration is incomplete.')
 
     msg = EmailMessage()
     msg['Subject'] = subject
@@ -65,13 +68,18 @@ def send_email(subject: str, body: str, reply_to: str = None, attachment_bytes: 
 # Health check endpoint
 @app.route('/')
 def index():
-    return jsonify({"status": "ok"}), 200
+    # Serve the site homepage at root
+    return app.send_static_file('index.html')
 
 @app.after_request
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    # Basic caching for static assets
+    path = request.path or ''
+    if any(path.endswith(ext) for ext in ('.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.woff2', '.woff', '.ttf')):
+        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
     return response
 
 
@@ -134,14 +142,18 @@ def send():
 
         body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\n\nMessage:\n{message}\n\nSaved file: {saved_file or 'None'}"
 
+        # Try SMTP first; if unavailable, provide a mailto fallback that the frontend can open
         try:
             send_email(subject=subject, body=body, reply_to=email, attachment_bytes=attachment_bytes, attachment_filename=attachment_filename)
             return jsonify({'ok': True, 'saved_file': saved_file}), 200
         except Exception as e:
-            tb = traceback.format_exc()
-            print('Email send error:', str(e))
-            print(tb)
-            return jsonify({'ok': False, 'error': str(e)}), 500
+            print('SMTP not configured or failed, falling back to mailto:', str(e))
+            # Build a safe mailto URL
+            from urllib.parse import quote
+            mailto_subject = quote(subject)
+            mailto_body = quote(body)
+            mailto_url = f"mailto:{MAIL_TO}?subject={mailto_subject}&body={mailto_body}"
+            return jsonify({'ok': True, 'fallback': 'mailto', 'mailto_url': mailto_url, 'saved_file': saved_file}), 200
 
     except Exception as outer:
         tb = traceback.format_exc()

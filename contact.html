@@ -4,14 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Contact Us — Ausnya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+    <!-- Performance: preconnect to booking and fonts/CDN used at interaction time -->
+    <link rel="preconnect" href="https://www.secure-booking-engine.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.secure-booking-engine.com">
+    <!-- Add theme styles so header matches the home page -->
+    <link rel='stylesheet' id='cozystay-theme-style-css' href='wp-content/themes/cozystay/assets/styles/front/main.minb5ae.css?ver=2024091901' type='text/css' media='all' />
+    <link rel='stylesheet' id='cozystay-child-theme-style-css' href='wp-content/themes/cozystay-child/style0899.css?ver=6.8.1' type='text/css' media='all' />
     <style>
       :root{--accent:#b89367;--muted:#777;--max:1100px}
-      html,body{height:100%;margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;color:#222}
+      html,body{height:100%;margin:0;font-family:Jost,system-ui,Arial,sans-serif;color:#222}
       body{line-height:1.6}
+      /* Fallback: ensure cloned theme header is visible even without WP context */
+      .custom-header{position:sticky;top:0;z-index:1000;color:#fff}
+      /* Match the sticky header color from the site (same as lower header) */
+      .custom-header .topbar{background:rgba(20,20,20,.55);backdrop-filter:blur(8px)}
+      .custom-header .navrow{background:rgba(20,20,20,.55);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.18)}
+      .custom-header .container{max-width:1220px;margin:0 auto;padding:12px 20px}
+      /* Center layout like home: menus left/right, logo perfectly centered */
+      .custom-header .navrow .container{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:14px 20px}
+      .custom-header .topbar .container{display:grid;grid-template-columns:1fr auto;align-items:center}
+      .custom-header .left{display:flex;gap:28px;justify-content:flex-start;align-items:center}
+      .custom-header .right{display:flex;gap:28px;justify-content:flex-end;align-items:center}
+      .custom-header .logo{justify-self:center}
+      .custom-header nav a{color:#fff;text-decoration:none;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+      .custom-header nav a + a{margin-left:26px}
+      /* Animated underline on header links */
+      .custom-header nav a{position:relative}
+      .custom-header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:#ffffff;transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+      .custom-header nav a:hover::after,.custom-header nav a:focus-visible::after{transform:scaleX(1)}
+      .custom-header .logo img{display:block;height:auto}
+      .custom-header .reserve{border:1px solid rgba(255,255,255,.95);color:#fff;padding:8px 16px;border-radius:2px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+
+      /* Sticky compact header (hidden by default until scroll) */
+      .custom-header.sticky{position:fixed;left:0;right:0;top:-100px;transition:top .25s ease}
+      .show-sticky #customStickyHeader{top:0}
+      /* Hide the topbar when scrolled */
+      .show-sticky .custom-header .topbar{display:none}
       .wrap{max-width:var(--max);margin:40px auto;padding:20px}
-      header h1{font-family:'Cormorant Garamond',serif;font-size:56px;margin:6px 0;color:#111}
+      header h1{font-family:'Marcellus',serif;font-size:56px;margin:6px 0;color:#111}
       .layout{display:flex;gap:40px}
       .main{flex:1 1 65%}
       .aside{width:320px}
@@ -45,10 +78,64 @@
   .modal-box h2{margin:0 0 8px;font-size:28px}
   .modal-box p{margin:0;color:#444}
 
+  /* Footer hover to red */
+  .site-footer a{transition:color .15s ease}
+  .site-footer a:hover,.site-footer a:focus{color:#e53935 !important}
+
       @media(max-width:900px){.layout{flex-direction:column}.aside{width:100%}}
     </style>
   </head>
   <body>
+    <div id="page">
+    <!-- Lightweight replica of the home navigation (independent of Elementor) -->
+    <header class="custom-header" role="banner">
+      <div class="topbar">
+        <div class="container">
+          <div class="left">Ausnya Hotels &amp; Resorts</div>
+          <div class="right"><a href="tel:+919821902009">Tel: +91 9821902009</a></div>
+        </div>
+      </div>
+      <div class="navrow">
+        <div class="container">
+          <nav class="left">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="stay.html">Stay</a>
+          </nav>
+          <a class="logo" href="index.html" aria-label="Site Logo">
+            <img src="wp-content/uploads/2023/04/Ausnya-Hotels-and-Resorts-Logo-255x64.png" alt="Ausnya Logo" width="170" height="43" />
+          </a>
+          <nav class="right">
+            <a href="play.html">Play</a>
+            <a href="dine.html">Dine</a>
+            <a class="active" href="contact.html">Contact</a>
+            <a class="reserve" href="https://www.secure-booking-engine.com/accounts/8aALaJ0rPteQCO_Wbjlppg/properties/aHaQ1czB99Vfr0RBuLFZug/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/cart/OLFk6KpL_NAj-jCyC6m3kg/#!/rooms">Reserve Now</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sticky clone: compact, no topbar -->
+    <div class="custom-header sticky" id="customStickyHeader" aria-hidden="true">
+      <div class="navrow">
+        <div class="container">
+          <nav class="left">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="stay.html">Stay</a>
+          </nav>
+          <a class="logo" href="index.html" aria-label="Site Logo">
+            <img src="wp-content/uploads/2023/04/Ausnya-Hotels-and-Resorts-Logo-255x64.png" alt="Ausnya Logo" width="150" height="40" />
+          </a>
+          <nav class="right">
+            <a href="play.html">Play</a>
+            <a href="dine.html">Dine</a>
+            <a class="active" href="contact.html">Contact</a>
+            <a class="reserve" href="https://www.secure-booking-engine.com/accounts/8aALaJ0rPteQCO_Wbjlppg/properties/aHaQ1czB99Vfr0RBuLFZug/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/cart/OLFk6KpL_NAj-jCyC6m3kg/#!/rooms">Reserve Now</a>
+          </nav>
+        </div>
+      </div>
+    </div>
     <div class="wrap">
       <header>
         <h1>Contact Us</h1>
@@ -57,7 +144,7 @@
 
       <div class="layout">
         <main class="main">
-          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;margin-top:30px">Let's start a conversation</h2>
+          <h2 style="font-family:'Marcellus',serif;font-weight:300;margin-top:30px">Let's start a conversation</h2>
 
           <form id="contactForm">
             <label for="name">Your name</label>
@@ -92,14 +179,13 @@
             <h3>Contact Details</h3>
             <p class="section-title">Hotel Info Center</p>
             <p class="info">Business Hours: Monday – Sunday, 9 am – 5 pm</p>
-            <p class="info">Telephone: <a class="accent" href="tel:+919821902009">+919821902009</a></p>
+            <p class="info">Telephone: <a class="accent" href="tel:+919821902009">+91 9821902009</a></p>
             <p class="info">Email: <a class="accent" href="mailto:reserve@ausnya.com">reserve@ausnya.com</a></p>
 
             <p class="info">
               <span style="display:block;">
                 Address: Ausnya Hotels and Resorts<br>
-                Village Sai Roopa Banjar — Kullu<br>
-                Himachal Pradesh Pin code 175123
+                Village Sai Roopa Banjar, Kullu Himachal Pradesh, Pin code 175123
               </span>
               <a class="directions-link" href="https://www.google.com/maps/dir/?api=1&destination=Ausnya+Hotels+and+Resorts,+Village+Sai+Roopa+Banjar,+Kullu,+Himachal+Pradesh+175123" target="_blank" rel="noopener" style="margin-top:8px;display:inline-block;">Get Directions</a>
             </p>
@@ -114,11 +200,11 @@
 
           <!-- About widget: link to local about page and show local image (fallback-safe) -->
           <div class="widget cs-widget_about" style="margin-top:20px">
-            <h5 class="widget-title" style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;color:var(--accent);font-size:28px;">
+            <h5 class="widget-title" style="margin:0 0 12px;font-family:'Marcellus',serif;color:var(--accent);font-size:28px;">
               <a href="about.html" style="color:inherit;text-decoration:none;font-size:1.2em;">ABOUT US</a>
             </h5>
             <div class="profile">
-              <img class="profile-img" src="images/profile.png" alt="About Ausnya" style="width:100%;height:200px;object-fit:cover;border-radius:2px;display:block">
+              <img class="profile-img" src="images/profile.png" alt="About Ausnya" style="width:100%;height:200px;object-fit:cover;border-radius:2px;display:block" loading="lazy" decoding="async">
               <p style="margin:12px 0 0;line-height:1.6;color:#0b0a0a;font-size:15px">Ausnya is a thoughtfully designed retreat nestled along the pristine riverbanks of Tirthan Valley, offering contemporary accommodations and access to hiking and fishing adventures.</p>
             </div>
           </div>
@@ -130,22 +216,21 @@
       <div class="wrap">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px">
           <div>
-            <h2 style="font-family:'Cormorant Garamond',serif;font-size:32px;margin:0 0 20px">Ausnya</h2>
+            <h2 style="font-family:'Marcellus',serif;font-size:32px;margin:0 0 20px">Ausnya</h2>
             <p style="margin:0">Ausnya is a thoughtfully designed retreat nestled along the pristine riverbanks of Tirthan Valley, Himachal Pradesh minutes from the UNESCO Great Himalayan National Park.</p>
           </div>
           
           <div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 20px">Reach Out</h3>
+            <h3 style="font-family:'Marcellus',serif;font-size:24px;margin:0 0 20px">Reach Out</h3>
             <p style="margin:0">Ausnya Hotels and Resorts<br>
-            Village Sai Ropa<br>
-            Banjar Himachal Pradesh<br>
+            Village Sai Roopa Banjar, Kullu Himachal Pradesh<br>
             Pin code 175123<br>
             Email: reserve@ausnya.com<br>
-            Tel: +919821902009</p>
+            Tel: +91 9821902009</p>
           </div>
 
           <div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 20px">Follow our journey</h3>
+            <h3 style="font-family:'Marcellus',serif;font-size:24px;margin:0 0 20px">Follow our journey</h3>
             <p style="margin:0">Stay Connected:</p>
             <a href="https://www.instagram.com/stayatausnya?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="color:#fff;text-decoration:none;display:inline-block;margin-top:10px">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle">
@@ -208,7 +293,12 @@
             });
             
             if (response.ok) {
-                // Show success modal
+                const res = await response.json().catch(()=>({}));
+                // If backend provided a mailto fallback, open it
+                if (res && res.mailto_url) {
+                    window.location.href = res.mailto_url;
+                }
+                // Show success modal regardless
                 if (modal) {
                     modal.classList.add('visible');
                     modal.setAttribute('aria-hidden', 'false');
@@ -230,6 +320,26 @@
             errorDiv.style.display = 'block';
         }
       });
+    </script>
+    <!-- Instant navigation prefetch to make page transitions feel immediate -->
+    <script type="module" defer src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" integrity="sha384-eMnPpHkQYb7yB6v1xgGg0v9fH8tWyGk6X4Y8W9D3kNwJpZyQ8i1d4Jd6H2E1i9wE"></script>
+    </div>
+    <!-- Lightweight show-on-scroll behavior for the replica header -->
+    <script>
+      (function(){
+        let lastY = window.scrollY;
+        function onScroll(){
+          const y = window.scrollY || 0;
+          if(y > 50){
+            document.documentElement.classList.add('show-sticky');
+          } else {
+            document.documentElement.classList.remove('show-sticky');
+          }
+          lastY = y;
+        }
+        window.addEventListener('scroll', onScroll, {passive:true});
+        onScroll();
+      })();
     </script>
   </body>
 </html>
